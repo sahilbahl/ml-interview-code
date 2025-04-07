@@ -173,7 +173,6 @@ class KMeans:
         X : array-like of shape (n_samples, n_features)
             Data points to plot.
         title : str, default="KMeans Clustering"
-            Title for the plot.
         """
         if X.shape[1] != 2:
             print("Plotting is only supported for 2D data.")
