@@ -23,6 +23,15 @@ def sample_data_linearly_dependent():
     return X_train, y_train, expected_theta
 
 
+# Fixture to provide a simple dataset for testing
+@pytest.fixture
+def sample_prediction():
+    X_train = np.array([[1, 2], [2, 3], [3, 4], [4, 5], [5, 7]])  # Features are linearly independent
+    y_train = np.array([5, 7, 9, 11, 13])
+    X_test = np.array([[1, 2], [2, 3], [3, 4], [4, 5], [5, 6]])
+    return X_train, y_train, X_test
+
+
 @pytest.mark.parametrize(
     "data_fixture", [
         "sample_data_independent",
@@ -41,3 +50,16 @@ def test_linear_regression_fit(request, data_fixture):
     
     # Use np.testing.assert_allclose to compare the actual theta and expected theta
     np.testing.assert_allclose(model.theta, expected_theta, atol=0.1)
+
+
+def test_pred(sample_prediction):
+    X_train, y_train, X_test =  sample_prediction
+
+    lr = LinearRegression()
+    lr.fit(X_train, y_train)
+
+    preds = lr.predict(X_test)
+
+    print(preds)
+
+

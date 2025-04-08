@@ -21,5 +21,11 @@ class LinearRegression:
 
         print("Theta values:", self.theta)  # Optionally print theta to verify
 
+    def predict(self, X_test: np.array):
+        X = np.concatenate([np.ones((X_test.shape[0], 1)), X_test], axis=1)
+        pred = np.dot(X, self.theta)
+        return pred
+        
+
 
     
