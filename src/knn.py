@@ -1,4 +1,5 @@
 import numpy as np
+from collections import Counter
 
 class KNN:
 
@@ -6,21 +7,19 @@ class KNN:
         self.k = k
     
     def fit(self, X, y):
-        self.train_X = X
-        self.train_y = y
+        self.X_train = X
+        self.y_train = y
     
     def predict(self, X):
         predictions = []
         for data in X:
             distances = self._compute_distances(data)
-            top_neighbour_idx =  np.argpartition(distances, self.k)[:self.k]
+            nearest_neighbour_idx =  np.argpartition(distances, self.k)[:self.k]
+            nearest_neighbour_preds = self.y_train[nearest_neighbour_idx]
+            final_pred = Counter(nearest_neighbour_preds).most_common(1)[0][0]
+            predictions.append(final_pred)
+        return predictions
 
     def _compute_distances(self, data):
-        distances = []
-
-        for pt in self.train_X:
-            distance = np.linalg.norm(pt - data)
-            distances.append(distance)
-        
+        distances = np.linalg.norm(self.X_train - data, axis=1)
         return distances
-    
