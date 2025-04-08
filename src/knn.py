@@ -11,15 +11,20 @@ class KNN:
         self.y_train = y
     
     def predict(self, X):
-        predictions = []
-        for data in X:
-            distances = self._compute_distances(data)
-            nearest_neighbour_idx =  np.argpartition(distances, self.k)[:self.k]
-            nearest_neighbour_preds = self.y_train[nearest_neighbour_idx]
-            final_pred = Counter(nearest_neighbour_preds).most_common(1)[0][0]
-            predictions.append(final_pred)
-        return predictions
+        distances = self._compute_all_distances(X)
+        # Get indices of k nearest neighbors
+        neighbor_idxs = np.argpartition(distances, self.k, axis=1)[:, :self.k]
+        # Fetch labels
+        neighbor_labels = self.y_train[neighbor_idxs]
+        # Mode across rows (axis=1)
+        return np.array([Counter(row).most_common(1)[0][0] for row in neighbor_labels])
 
-    def _compute_distances(self, data):
-        distances = np.linalg.norm(self.X_train - data, axis=1)
-        return distances
+    def _compute_all_distances(self, X: np.ndarray) -> np.ndarray:
+        # Efficient pairwise distance (Euclidean) using broadcasting:
+        # (x - y)^2 = x^2 + y^2 - 2xy
+        X_norm = np.sum(X ** 2, axis=1).reshape(-1, 1)
+        X_train_norm = np.sum(self.X_train ** 2, axis=1).reshape(1, -1)
+        cross_term = np.dot(X, self.X_train.T)
+        dists = np.sqrt(X_norm - 2 * cross_term + X_train_norm)
+        return dists
+    
