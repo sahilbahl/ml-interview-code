@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from kmeans_ai import KMeans
+from src.kmeans_ai import KMeans
 
 def test_kmeans_initialization():
     """Test the initialization of KMeans with different parameters"""
