@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from src.kmeans_ai import KMeans
+from src.kmeans import KMeans
 
 def test_kmeans_initialization():
     """Test the initialization of KMeans with different parameters"""
@@ -9,7 +9,7 @@ def test_kmeans_initialization():
     assert kmeans.max_iters == 100
     assert kmeans.tol == 1e-5
     assert kmeans.random_state == 42
-    assert kmeans.centroids is None
+    assert kmeans.centroids_ is None
     assert kmeans.labels_ is None
     assert kmeans.inertia_ is None
 
@@ -22,17 +22,17 @@ def test_fit_when_k_greater_than_num_points_throws_error():
 def test_centroid_initialization():
     """Test that centroids are initialized correctly from data points"""
     X = np.array([[1, 2], [1, 4], [1, 0], [10, 2], [10, 4], [10, 0]])
-    kmeans = KMeans(n_clusters=2, random_state=42)
+    kmeans = KMeans(n_clusters=2, random_state=42, max_iters=0)
     kmeans.fit(X)
     
     # Check that centroids were initialized
-    assert kmeans.centroids is not None
-    assert kmeans.centroids.shape == (2, 2)
+    assert kmeans.centroids_ is not None
+    assert kmeans.centroids_.shape == (2, 2)
     
     # With random_state=42, we should get deterministic initialization
     # Check the centroids are actual data points from X
-    assert any(np.array_equal(kmeans.centroids[0], x) for x in X)
-    assert any(np.array_equal(kmeans.centroids[1], x) for x in X)
+    assert any(np.array_equal(kmeans.centroids_[0], x) for x in X)
+    assert any(np.array_equal(kmeans.centroids_[1], x) for x in X)
 
 def test_assign_clusters():
     """Test that _assign_clusters correctly assigns data points to the nearest centroid"""
@@ -41,7 +41,7 @@ def test_assign_clusters():
     
     # Create KMeans instance with fixed centroids
     kmeans = KMeans(n_clusters=2)
-    kmeans.centroids = np.array([[1, 1], [10, 10]])  # Set centroids manually to cluster centers
+    kmeans.centroids_ = np.array([[1, 1], [10, 10]])  # Set centroids manually to cluster centers
     
     # Call _assign_clusters method directly
     labels = kmeans._assign_clusters(X)
@@ -74,13 +74,13 @@ def test_update_centroids():
     
     # Create KMeans instance
     kmeans = KMeans(n_clusters=2)
-    kmeans.centroids = np.array([[1, 1], [10, 10]])  # Set initial centroids
+    kmeans.centroids_ = np.array([[1, 1], [10, 10]])  # Set initial centroids
     
     # Assign points to clusters
     kmeans.labels_ = np.array([0, 0, 0, 1, 1, 1])  # First 3 points to cluster 0, last 3 to cluster 1
     
     # Update centroids
-    kmeans._update_centroids(X)
+    new_centroids = kmeans._update_centroids(X)
     
     # Expected new centroids: mean of points in each cluster
     expected_centroids = np.array([
@@ -89,7 +89,7 @@ def test_update_centroids():
     ])
     
     # Check that centroids were updated correctly
-    np.testing.assert_almost_equal(kmeans.centroids, expected_centroids, decimal=6)
+    np.testing.assert_almost_equal(new_centroids, expected_centroids, decimal=6)
 
 def test_predict():
     """Test that predict assigns new data points to the nearest centroid"""

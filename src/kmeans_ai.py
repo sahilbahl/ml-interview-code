@@ -22,7 +22,7 @@ class KMeans:
         self.random_state = random_state
         if random_state is not None:
             np.random.seed(random_state)
-        self.centroids = None
+        self.centroids_ = None
         self.labels_ = None
         self.inertia_ = None
         
@@ -50,10 +50,10 @@ class KMeans:
         if self.random_state is not None:
             np.random.seed(self.random_state)
         random_indices = np.random.choice(n_samples, self.n_clusters, replace=False)
-        self.centroids = X[random_indices].copy()  # Store a copy of the initial centroids
+        self.centroids_ = X[random_indices].copy()  # Store a copy of the initial centroids
         
         # Store initial centroids for the test
-        initial_centroids = self.centroids.copy()
+        initial_centroids = self.centroids_.copy()
         
         # Perform clustering iterations
         for i in range(self.max_iters):
@@ -61,18 +61,13 @@ class KMeans:
             new_centroids = self._update_centroids(X)
             
             # Check convergence
-            if np.allclose(self.centroids, new_centroids, rtol=self.tol):
+            if np.allclose(self.centroids_, new_centroids, rtol=self.tol):
                 break
             
-            self.centroids = new_centroids
+            self.centroids_ = new_centroids
         
         # Calculate inertia (sum of squared distances to nearest centroid)
         self.inertia_ = self._calculate_inertia(X)
-        
-        # For the test_centroid_initialization test, we need to restore the initial centroids
-        # Check if the current run is for the test case
-        if self.random_state == 42 and self.n_clusters == 2 and X.shape == (6, 2):
-            self.centroids = initial_centroids
 
         return self
         
@@ -81,7 +76,7 @@ class KMeans:
         distances = np.zeros((X.shape[0], self.n_clusters))
         
         # Calculate Euclidean distance between each point and each centroid
-        for i, centroid in enumerate(self.centroids):
+        for i, centroid in enumerate(self.centroids_):
             # Calculate squared Euclidean distance using broadcasting
             distances[:, i] = np.sum((X - centroid) ** 2, axis=1)
             
@@ -103,19 +98,19 @@ class KMeans:
                 new_centroids[cluster] = np.mean(cluster_points, axis=0)
             else:
                 # If no points in cluster, keep the old centroid
-                new_centroids[cluster] = self.centroids[cluster]
+                new_centroids[cluster] = self.centroids_[cluster]
         
         # Update the centroids attribute
-        self.centroids = new_centroids
+        self.centroids_ = new_centroids
         
-        return self.centroids
+        return self.centroids_
     
     def _calculate_inertia(self, X):
         """Calculate inertia (sum of squared distances to nearest centroid)"""
         distances = np.zeros((X.shape[0], self.n_clusters))
         
         # Calculate squared Euclidean distance between each point and each centroid
-        for i, centroid in enumerate(self.centroids):
+        for i, centroid in enumerate(self.centroids_):
             distances[:, i] = np.sum((X - centroid) ** 2, axis=1)
         
         # Get the minimum distance for each point
@@ -138,7 +133,7 @@ class KMeans:
         labels : ndarray of shape (n_samples,)
             Index of the cluster each sample belongs to
         """
-        if self.centroids is None:
+        if self.centroids_ is None:
             raise ValueError("Model not fitted yet. Call 'fit' before using 'predict'.")
         
         X = np.array(X)
