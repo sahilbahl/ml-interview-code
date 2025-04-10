@@ -3,29 +3,35 @@ repos:
    rev: v4.4.0
    hooks:
    -  id: end-of-file-fixer
+      exclude: ^tests/
    -  id: trailing-whitespace
+      exclude: ^tests/
    -  id: check-ast
+      exclude: ^tests/
 
 -   repo: https://github.com/psf/black
     rev: 22.3.0
     hooks:
     -   id: black
+        exclude: ^tests/
 
 -  repo: https://github.com/PyCQA/flake8
    rev: 5.0.4
    hooks:
    -  id: flake8
       language_version: python3.13
+      exclude: ^tests/
 
 -  repo: https://github.com/pycqa/isort
    rev: '5.11.5'
    hooks:
    -  id: isort
+      exclude: ^tests/
 
 -  repo: https://github.com/pre-commit/mirrors-mypy
    rev: 'v1.2.0'  # Use the sha / tag you want to point at
    hooks:
    -  id: mypy
       verbose: true
-      exclude: tests/
+      exclude: ^tests/
       args: [--config-file, setup.cfg, --explicit-package-bases]

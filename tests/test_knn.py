@@ -1,6 +1,8 @@
-from src.knn import KNN
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+
+from src.knn import KNN
+
 
 def test_knn():
     knn = KNN(3)
@@ -11,7 +13,9 @@ def test_knn():
 
     print(len(X))
     print(len(y))
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1234)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=1234
+    )
 
     knn.fit(X_train, y_train)
 

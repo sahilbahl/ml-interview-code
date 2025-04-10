@@ -1,7 +1,10 @@
 import numpy as np
 
+
 class LinearRegression:
-    def fit(self, X_train: np.ndarray, y_train: np.ndarray, alpha: float = 0.01):
+    def fit(
+        self, X_train: np.ndarray, y_train: np.ndarray, alpha: float = 0.01
+    ) -> "LinearRegression":
         self.X_train = X_train
         self.y_train = y_train
 
@@ -21,11 +24,9 @@ class LinearRegression:
 
         print("Theta values:", self.theta)  # Optionally print theta to verify
 
-    def predict(self, X_test: np.array):
+        return self
+
+    def predict(self, X_test: np.ndarray) -> np.ndarray:
         X = np.concatenate([np.ones((X_test.shape[0], 1)), X_test], axis=1)
         pred = np.dot(X, self.theta)
         return pred
-        
-
-
-    
