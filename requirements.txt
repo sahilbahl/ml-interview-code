@@ -1,3 +1,9 @@
 pytest
 numpy
 scikit-learn
+
+# Linting
+black
+flake8
+isort
+pre-commit
