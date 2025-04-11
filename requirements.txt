@@ -1,6 +1,8 @@
 pytest
 numpy
 scikit-learn
+matplotlib
+tqdm
 
 # Linting
 black
