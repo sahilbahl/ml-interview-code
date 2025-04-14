@@ -2,7 +2,7 @@ import types
 
 import numpy as np
 
-from src.decision_tree import DecisionTreeClassifier
+from src.calculator import DecisionTreeClassifier
 
 
 def test_perfectly_separable_data():
