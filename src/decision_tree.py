@@ -16,12 +16,22 @@ class Node:
 
 
 class DecisionTreeClassifier:
-    def __init__(self, max_depth: int = 10, min_samples_split: int = 1):
+    def __init__(
+        self,
+        max_depth: int = 10,
+        min_samples_split: int = 1,
+        max_features: Optional[int] = None,
+        random_state: Optional[int] = None,
+    ):
         self.max_depth = max_depth
         self.min_samples_split = min_samples_split
+        self.max_features = max_features
+        self.random_state = random_state
+        if random_state is not None:
+            np.random.seed(random_state)
 
     def _gini_impurity(self, y: np.ndarray) -> float:
-        classes, counts = np.unique(y, return_counts=True)
+        _, counts = np.unique(y, return_counts=True)
         prob_sq_sum = np.sum((counts / len(y)) ** 2)
         return 1 - prob_sq_sum
 
@@ -60,13 +70,24 @@ class DecisionTreeClassifier:
     def _find_best_split(
         self, X: np.ndarray, y: np.ndarray
     ) -> tuple[Optional[int], Optional[float], Optional[float]]:
-        unique_values = [np.unique(X[:, i]) for i in range(X.shape[1])]
-        num_data_pts, num_feat = X.shape
+        total_num_features = X.shape[1]
+        selected_feat_indexes = list(range(total_num_features))
+
+        if self.max_features is not None:
+            selected_feat_indexes = np.random.choice(
+                total_num_features, self.max_features, replace=False
+            )
+
+        unique_values = {
+            feat_index: np.unique(X[:, feat_index])
+            for feat_index in selected_feat_indexes
+        }
+        num_data_pts = X.shape[0]
 
         best_feat_index = None
         best_threshold = None
         best_gini_split = None
-        for feat_index in range(num_feat):
+        for feat_index in selected_feat_indexes:
             vals = unique_values[feat_index]
 
             thresholds = (vals[1:] + vals[:-1]) / 2
