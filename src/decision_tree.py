@@ -60,7 +60,7 @@ class DecisionTreeClassifier:
     def _find_best_split(
         self, X: np.ndarray, y: np.ndarray
     ) -> tuple[Optional[int], Optional[float], Optional[float]]:
-        unique_values = unique_values = [np.unique(X[:, i]) for i in range(X.shape[1])]
+        unique_values = [np.unique(X[:, i]) for i in range(X.shape[1])]
         num_data_pts, num_feat = X.shape
 
         best_feat_index = None
@@ -68,9 +68,11 @@ class DecisionTreeClassifier:
         best_gini_split = None
         for feat_index in range(num_feat):
             vals = unique_values[feat_index]
-            for val in vals:
-                left_indices = np.where(X[:, feat_index] <= val)[0]
-                right_indices = np.where(X[:, feat_index] > val)[0]
+
+            thresholds = (vals[1:] + vals[:-1]) / 2
+            for threshold in thresholds:
+                left_indices = np.where(X[:, feat_index] <= threshold)[0]
+                right_indices = np.where(X[:, feat_index] > threshold)[0]
 
                 if len(left_indices) == 0 or len(right_indices) == 0:
                     continue
@@ -85,7 +87,7 @@ class DecisionTreeClassifier:
 
                 if best_gini_split is None or weighted_gini < best_gini_split:
                     best_feat_index = feat_index
-                    best_threshold = val
+                    best_threshold = threshold
                     best_gini_split = weighted_gini
 
         return best_feat_index, best_threshold, best_gini_split
