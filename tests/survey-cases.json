@@ -1,0 +1,172 @@
+[
+    {
+        "question": "M M M M M F F F F F",
+        "responses": [
+            "M F M F M F M F M F",
+            "M F M F M F M F M F",
+            "M F M F M F M F M F",
+            "M F M F M F M F M F",
+            "M M F F M M M F F F",
+            "M M F M F M F F M F",
+            "M M F M F M F M F F",
+            "M M F M F M F M F F",
+            "M M F M F M F M F F",
+            "M M F M M F F M F F",
+            "M M F M M F M F F F",
+            "M M F M M F M F F F",
+            "M M M F F F M M F F",
+            "M M M F M F M F F F"
+        ]
+    },
+    {
+        "question": "F M M M M M M F F F",
+        "responses": [
+            "F M F M F M F M M M",
+            "F M F M F M F M M M",
+            "F M F M F M M F M M",
+            "F M M F M F M F M M",
+            "F M M F M F M F M M",
+            "F M M F M M F M M F",
+            "F M M F M M F M M F",
+            "F M M F M M M F F M",
+            "F M M F M M M F M F",
+            "F M M M F F M M M F",
+            "F M M M F M M F M F",
+            "F M M M F M M F M F",
+            "F M M M F M M F M F",
+            "F M M M M M M F F F"
+        ]
+    },
+    {
+        "question": "F F F F F F F M",
+        "responses": [
+            "F F F F M F F F",
+            "F F F M F F F F",
+            "F F F M F F F F",
+            "F F F M F F F F",
+            "F F F M F F F F",
+            "F F F M F F F F",
+            "F F F M F F F F",
+            "F F M F F F F F",
+            "F F M F F F F F",
+            "F F M F F F F F",
+            "F M F F F F F F",
+            "F M F F F F F F",
+            "F M F F F F F F",
+            "F M F F F F F F"
+        ]
+    },
+    {
+        "question": "M M M M F F F M M M",
+        "responses": [
+            "M F M F M F M M M M",
+            "M F M F M F M M M M",
+            "M F M F M F M M M M",
+            "M F M F M M F M M M",
+            "M F M M F M M F M M",
+            "M M F M F M F M M M",
+            "M M F M F M F M M M",
+            "M M F M F M F M M M",
+            "M M F M F M M F M M",
+            "M M F M M F F M M M",
+            "M M F M M F F M M M",
+            "M M M F F F M M M M",
+            "M M M F F F M M M M",
+            "M M M F M F M F M M"
+        ]
+    },
+    {
+        "question": "M M M X X X X X F",
+        "responses": [
+            "M F M X M X X X X",
+            "M M F M X X X X X",
+            "M M F M X X X X X",
+            "M M F M X X X X X",
+            "M M F M X X X X X",
+            "M M F X X M X X X",
+            "M M M F X X X X X",
+            "M M M F X X X X X",
+            "M M M X F X X X X",
+            "M M X F M X X X X",
+            "M X F M X M X X X",
+            "M X F M X M X X X",
+            "M X F M X M X X X",
+            "M X M M X F X X X"
+        ]
+    },
+    {
+        "question": "M X M X M X M X F",
+        "responses": [
+            "M F M X M X M X X",
+            "M F X M X M X M X",
+            "M X F M X M X M X",
+            "M X F M X M X M X",
+            "M X F M X M X M X",
+            "M X F M X M X M X",
+            "M X F M X M X M X",
+            "M X F X M X M X M",
+            "M X M F X M X M X",
+            "M X M F X M X M X",
+            "M X M F X M X M X",
+            "M X M X F M X M X",
+            "M X M X M X F M X"
+        ]
+    },
+    {
+        "question": "F X X M M M M F F F",
+        "responses": [
+            "F M X X M F M M F F",
+            "F X M F M F X M M F",
+            "F X M X M F M F M F",
+            "F X M X M F M F M F",
+            "F X M X M F M F M F",
+            "F X M X M F M F M F",
+            "F X M X M F M F M F",
+            "F X M X M F M F M F",
+            "F X M X M M F M F F",
+            "F X M X M M F M F F",
+            "F X X M F M F M F M",
+            "F X X M F M M M F F",
+            "F X X M M M M F F F",
+            "F X X M M M M F F F"
+        ]
+    },
+    {
+        "question": "F X X X X F M M M F",
+        "responses": [
+            "F M X F M X F M X X",
+            "F X M X F M X F M X",
+            "F X M X F M X M F X",
+            "F X M X F M X M F X",
+            "F X M X F M X M F X",
+            "F X M X F M X M F X",
+            "F X M X X F X M M F",
+            "F X X F M X X M M F",
+            "F X X F X M X M M F",
+            "F X X M F X M X M F",
+            "F X X M X X F M M F",
+            "F X X X F M X M M F",
+            "F X X X M X F M M F",
+            "F X X X X F M F M M"
+        ]
+    },
+    {
+        "question": "X X X X F X X X X M",
+        "responses": [
+            "F M X X X X X X X X",
+            "X F M X X X X X X X",
+            "X F M X X X X X X X",
+            "X F M X X X X X X X",
+            "X X F M X X X X X X",
+            "X X F M X X X X X X",
+            "X X F X X M X X X X",
+            "X X F X X X X M X X",
+            "X X X F M X X X X X",
+            "X X X F X M X X X X",
+            "X X X F X X X M X X",
+            "X X X X F X X M X X",
+            "X X X X F X X M X X",
+            "X X X X F X X X X M"
+        ]
+    }
+]
